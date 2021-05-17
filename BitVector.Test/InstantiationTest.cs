@@ -4,7 +4,6 @@ namespace BitVector.Test
 {
     public class InstantiationTest
     {
-
         private static BitVector CreateFullBitVector(BitVector bitVector, int size)
         {
             for (int i = 0; i < size; i++)

@@ -2,6 +2,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Specialized;
 using System;
+using System.Collections.Generic;
 
 namespace BitVector
 {
@@ -83,7 +84,8 @@ namespace BitVector
 
         public BitVector(int size = 32)
         {
-            if (size <= 0) {
+            if (size <= 0)
+            {
                 throw new ArgumentException("size must be > 0");
             }
             this.size = size;
@@ -204,13 +206,17 @@ namespace BitVector
             }
         }
 
-        public bool Equals(BitVector other)
+        public override bool Equals(object otherObject)
         {
+            var other = otherObject as BitVector;
+            
             // https://stackoverflow.com/questions/567642/how-to-best-implement-equals-for-custom-types
-            if (other == null) {
+            if (other == null)
+            {
                 return false;
             }
-            if (this == other)  {
+            if (this == other)
+            {
                 return true;
             }
 
@@ -218,19 +224,69 @@ namespace BitVector
             var currentIndex = 0;
             var otherBitVectors = other.BitVectors;
 
-            if (this.BitVectors.Length != otherBitVectors.Length) {
+            if (this.BitVectors.Length != otherBitVectors.Length)
+            {
                 return false;
             }
-        
+
             foreach (var oneBitVector in this.BitVectors)
-            {   var otherOneBitVector = otherBitVectors[currentIndex];
+            {
+                var otherOneBitVector = otherBitVectors[currentIndex];
                 isEqual = isEqual && oneBitVector.Equals(otherOneBitVector);
-                if (!isEqual) {
+                if (!isEqual)
+                {
                     return false;
                 }
                 currentIndex++;
             }
             return true;
+        }
+
+        // public bool Equals(BitVector x, BitVector y)
+        // {
+        //     return x.Equals(y);
+        // }
+
+        // BitVector obj 
+        public override int GetHashCode()
+        {
+            // var sum = 0;
+
+            // // System.Console.WriteLine("---");
+            // foreach (var oneBitVector in this.BitVectors)
+            // {
+            //     // sum += oneBitVector.Data.GetHashCode();
+            //     // sum += oneBitVector.Data;
+            //     sum += this.BitVectors.Length;
+
+            //     // DEBUGGING:
+            //     // System.Console.WriteLine(sum);
+            // }
+            // // System.Console.WriteLine("---");
+
+
+            // return sum;
+
+            // 
+            var array = new int[this.BitVectors.Length];
+            var i = 0;
+            foreach (var item in this.BitVectors)
+            {
+                array[i] = this.BitVectors[i].Data;
+                i++;
+            }
+            // var array = obj.BitVectors; 
+            int hc = array.Length;
+            foreach (int val in array)
+            {
+                hc = unchecked(hc * 314159 + val);
+            }
+            return hc;
+        }
+
+        public bool Equals(BitVector other)
+        {
+            return this.Equals(other);
         }
     }
 }

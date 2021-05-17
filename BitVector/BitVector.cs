@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace BitVector
 {
-    public class BitVector : IEnumerable /*, IEquatable<BitVector>, IEqualityComparer<BitVector>*/
+    public class BitVector : IEnumerable, IEquatable<BitVector>/*, IEqualityComparer<BitVector>*/
     {
         private const int NUMBER_OF_BITS_IN_A_BITVECTOR32 = 32;
 
@@ -210,59 +210,7 @@ namespace BitVector
         {
             var other = otherObject as BitVector;
 
-            // https://stackoverflow.com/questions/567642/how-to-best-implement-equals-for-custom-types
-            if (other == null)
-            {
-                return false;
-            }
-            if (this == other)
-            {
-                return true;
-            }
-
-            var isEqual = true;
-            var currentIndex = 0;
-            var otherBitVectors = other.BitVectors;
-
-            if (this.BitVectors.Length != otherBitVectors.Length)
-            {
-                System.Console.WriteLine("not equal length");
-                return false;
-            }
-            // System.Console.WriteLine(this.ToString());
-            for (int i = 0; i < this.BitVectors.Length; i++)
-            {
-                var oneBitVector = this.BitVectors[i];
-                var otherOneBitVector = otherBitVectors[currentIndex];
-                var areBothCorrespondingEqual = oneBitVector.Equals(otherOneBitVector);
-                // System.Console.WriteLine(areBothCorrespondingEqual);
-
-                isEqual = isEqual && areBothCorrespondingEqual;
-                if (!isEqual)
-                {
-                    // DEBUGGING:
-                    // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
-                    // System.Console.WriteLine("!==" + other.ToString());
-                    return false;
-                }
-                currentIndex++;
-            }
-            // foreach (var oneBitVector in this.BitVectors)
-            // {
-            //     if (!isEqual)
-            //     {
-            //         // DEBUGGING:
-            //         // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
-
-            //         return false;
-            //     }
-            //     currentIndex++;
-            // }
-
-            // DEBUGGING:
-            // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
-
-            return true;
+            return this.Equals(other);
         }
 
         // public bool Equals(BitVector x, BitVector y)
@@ -310,6 +258,63 @@ namespace BitVector
                 hc = unchecked(hc * 314159 + val);
             }
             return hc;
+        }
+
+        public bool Equals(BitVector other)
+        {
+            // https://stackoverflow.com/questions/567642/how-to-best-implement-equals-for-custom-types
+            if (other == null)
+            {
+                return false;
+            }
+            if (this == other)
+            {
+                return true;
+            }
+
+            var isEqual = true;
+            // var currentIndex = 0;
+            var otherBitVectors = other.BitVectors;
+
+            if (this.BitVectors.Length != otherBitVectors.Length)
+            {
+                System.Console.WriteLine("not equal length");
+                return false;
+            }
+            // System.Console.WriteLine(this.ToString());
+            for (int currentIndex = 0; currentIndex < this.BitVectors.Length; currentIndex++)
+            {
+                var oneBitVector = this.BitVectors[currentIndex];
+                var otherOneBitVector = otherBitVectors[currentIndex];
+                var areBothCorrespondingEqual = oneBitVector.Equals(otherOneBitVector);
+                // System.Console.WriteLine(areBothCorrespondingEqual);
+
+                isEqual = isEqual && areBothCorrespondingEqual;
+                if (!isEqual)
+                {
+                    // DEBUGGING:
+                    // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
+                    // System.Console.WriteLine("!==" + other.ToString());
+                    return false;
+                }
+                // currentIndex++;
+            }
+            // foreach (var oneBitVector in this.BitVectors)
+            // {
+            //     if (!isEqual)
+            //     {
+            //         // DEBUGGING:
+            //         // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
+
+            //         return false;
+            //     }
+            //     currentIndex++;
+            // }
+
+            // DEBUGGING:
+            // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
+
+            return true;
         }
 
         // public bool Equals(BitVector other)

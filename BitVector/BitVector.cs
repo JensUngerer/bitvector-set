@@ -52,7 +52,20 @@ namespace BitVectorSetLibrary
 
         private int size;
 
-        public BitVector32[] BitVectors { get; }
+        public int Size
+        {
+            get
+            {
+                return size;
+            }
+        }
+
+        public BitVector32[] BitVectors { get; private set; }
+
+        public void Clear()
+        {
+            this.BitVectors = new BitVector32[this.BitVectors.Length];
+        }
 
         public int Cardinality
         {

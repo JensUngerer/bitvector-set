@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace BitVector.Test
@@ -28,7 +29,7 @@ namespace BitVector.Test
         public void GetHashCodeOverflowTest()
         {
             var bitVector = new BitVector(1000);
-
+            var hashSet = new HashSet<BitVector>();
             var index = 0;
             while (getGlobalIndex(index) < 1000)
             {
@@ -37,8 +38,15 @@ namespace BitVector.Test
                 // DEBUGGING:
                 // System.Console.WriteLine(bitVector.ToString());
                 // System.Console.WriteLine(bitVector.GetHashCode());
+                hashSet.Add(bitVector.Clone());
 
                 index++;
+            }
+
+            // DEBUGGING:
+            foreach (var item in hashSet)
+            {  
+               System.Console.WriteLine(item.ToString()); 
             }
         }
     }

@@ -5,12 +5,11 @@ using System;
 
 namespace BitVector
 {
-    public class BitVector : IEnumerable, IEquatable<BitVector>/*, IEqualityComparer<BitVector>*/
+    public class BitVector : IEnumerable, IEquatable<BitVector>
     {
-        private const int NUMBER_OF_BITS_IN_A_BITVECTOR32 = 32;
-
         private static int[] masks;
 
+        public const int NUMBER_OF_BITS_IN_A_BITVECTOR32 = 32;
 
         private static int getIndexInBitVectorsArea(int globalBitIndexInBitVectors)
         {

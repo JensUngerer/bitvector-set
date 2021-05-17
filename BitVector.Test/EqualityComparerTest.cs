@@ -17,13 +17,9 @@ namespace BitVector.Test
         {
         }
 
-        private static int getGlobalIndex(int index)
+        private static int getGlobalIndex(int index, int BITVECTOR_LENGTH, int BIT_TO_SET_WITHIN_BITVECTOR)
         {
-            const int BITVECTOR_LENGTH = 32;
-            const int BIT_TO_SET_WITHIN_BITVECTOR = 7;
-
-
-            return (BIT_TO_SET_WITHIN_BITVECTOR + BITVECTOR_LENGTH * index);
+            return BIT_TO_SET_WITHIN_BITVECTOR + BITVECTOR_LENGTH * index;
         }
 
         [Test]
@@ -32,9 +28,11 @@ namespace BitVector.Test
             var bitVector = new BitVector(1000);
             var hashSet = new HashSet<BitVector>();
             var index = 0;
-            while (getGlobalIndex(index) < 1000)
+            const int BIT_TO_SET_WITHIN_BITVECTOR = 7;
+
+            while (getGlobalIndex(index, BitVector.NUMBER_OF_BITS_IN_A_BITVECTOR32, BIT_TO_SET_WITHIN_BITVECTOR) < 1000)
             {
-                bitVector[getGlobalIndex(index)] = true;
+                bitVector[getGlobalIndex(index, BitVector.NUMBER_OF_BITS_IN_A_BITVECTOR32, BIT_TO_SET_WITHIN_BITVECTOR)] = true;
 
                 // DEBUGGING:
                 // System.Console.WriteLine(bitVector.ToString());
@@ -52,6 +50,39 @@ namespace BitVector.Test
             //    System.Console.WriteLine(item.ToString()); 
             // }
             // var arr = hashSet.ToArray();
+            // for (int i = 0; i < arr.Length -1; i++)
+            // {
+            //     System.Console.WriteLine(arr[i].Equals(arr[i+1]));
+            // }
+        }
+
+        [Test]
+        public void EqualityComparer()
+        {
+            var bitVector = new BitVector(1000);
+            var hashSet = new HashSet<BitVector>(new BitVectorEqualityComparer());
+            var index = 0;
+            const int BASE_INDEX = 1;
+            while (getGlobalIndex(index, BitVector.NUMBER_OF_BITS_IN_A_BITVECTOR32, BASE_INDEX) < 1000)
+            {
+                bitVector[getGlobalIndex(index, BitVector.NUMBER_OF_BITS_IN_A_BITVECTOR32, BASE_INDEX)] = true;
+
+                // DEBUGGING:
+                // System.Console.WriteLine(bitVector.ToString());
+                // System.Console.WriteLine(bitVector.GetHashCode());
+                var clonedBitVector = bitVector.Clone();
+                // System.Console.WriteLine(bitVector.GetHashCode() +"===" + clonedBitVector.GetHashCode());
+                hashSet.Add(clonedBitVector);
+
+                index++;
+            }
+
+            // DEBUGGING:
+            // foreach (var item in hashSet)
+            // {  
+            //    System.Console.WriteLine(item.ToString()); 
+            // }
+            // // var arr = hashSet.ToArray();
             // for (int i = 0; i < arr.Length -1; i++)
             // {
             //     System.Console.WriteLine(arr[i].Equals(arr[i+1]));

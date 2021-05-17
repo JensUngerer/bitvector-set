@@ -5,7 +5,7 @@ using System;
 
 namespace BitVector
 {
-    public class BitVector : IEnumerable
+    public class BitVector : IEnumerable, IEquatable<BitVector>
     {
         private const int NUMBER_OF_BITS_IN_A_BITVECTOR32 = 32;
 
@@ -55,7 +55,7 @@ namespace BitVector
 
         private int size;
 
-        private BitVector32[] BitVectors { get; }
+        public BitVector32[] BitVectors { get; }
 
         public int Cardinality
         {
@@ -202,6 +202,35 @@ namespace BitVector
                     yield return globalBitIndexInBitVectors;
                 }
             }
+        }
+
+        public bool Equals(BitVector other)
+        {
+            // https://stackoverflow.com/questions/567642/how-to-best-implement-equals-for-custom-types
+            if (other == null) {
+                return false;
+            }
+            if (this == other)  {
+                return true;
+            }
+
+            var isEqual = true;
+            var currentIndex = 0;
+            var otherBitVectors = other.BitVectors;
+
+            if (this.BitVectors.Length != otherBitVectors.Length) {
+                return false;
+            }
+        
+            foreach (var oneBitVector in this.BitVectors)
+            {   var otherOneBitVector = otherBitVectors[currentIndex];
+                isEqual = isEqual && oneBitVector.Equals(otherOneBitVector);
+                if (!isEqual) {
+                    return false;
+                }
+                currentIndex++;
+            }
+            return true;
         }
     }
 }

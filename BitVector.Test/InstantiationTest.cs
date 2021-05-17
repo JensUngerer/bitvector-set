@@ -71,7 +71,9 @@ namespace BitVector.Test
             var clone = bitVector.Clone();
 
             // ASSERT
+            Assert.True(bitVector.Equals(bitVector));
             Assert.AreNotSame(clone, bitVector);
+            Assert.True(bitVector.Equals(clone));
             Assert.AreEqual(size, bitVector.Cardinality);
             Assert.AreEqual(clone.Cardinality, bitVector.Cardinality);
             Assert.AreEqual(clone.ToString(), bitVector.ToString());

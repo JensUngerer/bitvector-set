@@ -74,6 +74,7 @@ namespace BitVector.Test
             Assert.AreNotSame(clone, bitVector);
             Assert.AreEqual(size, bitVector.Cardinality);
             Assert.AreEqual(clone.Cardinality, bitVector.Cardinality);
+            Assert.AreEqual(clone.ToString(), bitVector.ToString());
         }
     }
 }

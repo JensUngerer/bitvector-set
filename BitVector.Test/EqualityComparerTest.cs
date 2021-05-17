@@ -35,8 +35,8 @@ namespace BitVector.Test
                 bitVector[getGlobalIndex(index)] = true;
 
                 // DEBUGGING:
-                System.Console.WriteLine(bitVector.ToString());
-                System.Console.WriteLine(bitVector.GetHashCode());
+                // System.Console.WriteLine(bitVector.ToString());
+                // System.Console.WriteLine(bitVector.GetHashCode());
 
                 index++;
             }

@@ -267,7 +267,13 @@ namespace BitVector
 
             // return sum;
 
-            // 
+            // https://stackoverflow.com/questions/3404715/c-sharp-hashcode-for-array-of-ints/3404820
+            /**
+            * 
+            * Be careful! This will only work with the default System.Collections.Generic.GenericEqualityComparer<T>.
+            * If your HashSet is materialized by Entity Framework, it will have System.Data.Entity.Infrastructure.ObjectReferenceEqualityComparer. 
+            *
+            **/
             var array = new int[this.BitVectors.Length];
             var i = 0;
             foreach (var item in this.BitVectors)
@@ -275,7 +281,6 @@ namespace BitVector
                 array[i] = this.BitVectors[i].Data;
                 i++;
             }
-            // var array = obj.BitVectors; 
             int hc = array.Length;
             foreach (int val in array)
             {

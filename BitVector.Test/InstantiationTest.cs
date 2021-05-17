@@ -58,5 +58,22 @@ namespace BitVector.Test
             // ASSERT
             Assert.AreEqual(size, bitVector.Cardinality);
         }
+
+        [Test]
+        public void CreatedInstanceFullCardinalityClone()
+        {
+            // ARRANGE
+            var size = 64;
+            var bitVector = new BitVector(size);
+            
+            // ACT
+            CreateFullBitVector(bitVector, size);
+            var clone = bitVector.Clone();
+
+            // ASSERT
+            Assert.AreNotSame(clone, bitVector);
+            Assert.AreEqual(size, bitVector.Cardinality);
+            Assert.AreEqual(clone.Cardinality, bitVector.Cardinality);
+        }
     }
 }

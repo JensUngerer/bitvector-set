@@ -82,7 +82,7 @@ namespace BitVector
         }
 
 
-        public BitVector(int size)
+        public BitVector(int size = 32)
         {
             this.size = size;
             var bitVectorsLength = size / NUMBER_OF_BITS_IN_A_BITVECTOR32;
@@ -92,6 +92,53 @@ namespace BitVector
             }
             this.BitVectors = new BitVector32[bitVectorsLength];
         }
+
+        // necessary to e.g. create full BitVector?
+        // public BitVector(int[] bitVectorData)
+        // {
+        //     if (bitVectorData == null || bitVectorData.Length == 0)
+        //     {
+        //         throw new ArgumentException();
+        //     }
+        //     var length = bitVectorData.Length;
+        //     var clonedBitVectors = new BitVector32[length];
+        //     int currentIndex = 0;
+        //     foreach (var oneBitVectorData in bitVectorData)
+        //     {
+        //         clonedBitVectors[currentIndex] = new BitVector32(oneBitVectorData);
+        //         currentIndex++;
+        //     }
+        //     this.BitVectors = clonedBitVectors;
+        //     this.size = length * NUMBER_OF_BITS_IN_A_BITVECTOR32;
+        // }
+
+        private BitVector(BitVector32[] bitVectors)
+        {
+            // cf.: https://docs.microsoft.com/de-de/dotnet/api/system.object.memberwiseclone?view=net-5.0
+            if (bitVectors == null || bitVectors.Length == 0)
+            {
+                throw new ArgumentException();
+            }
+
+            var length = bitVectors.Length;
+            var size = length * NUMBER_OF_BITS_IN_A_BITVECTOR32;
+
+            var clonedBitVectors = new BitVector32[length];
+            var currentIndex = 0;
+            foreach (var oneBitVector in bitVectors)
+            {
+                clonedBitVectors[currentIndex] = new BitVector32(oneBitVector);
+                currentIndex++;
+            }
+            this.BitVectors = clonedBitVectors;
+            this.size = size;
+        }
+
+        public BitVector Clone()
+        {
+            return new BitVector(this.BitVectors);
+        }
+
 
         public bool this[int globalBitIndexInBitVectors]
         {

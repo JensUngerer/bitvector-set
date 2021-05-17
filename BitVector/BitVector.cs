@@ -209,7 +209,7 @@ namespace BitVector
         public override bool Equals(object otherObject)
         {
             var other = otherObject as BitVector;
-            
+
             // https://stackoverflow.com/questions/567642/how-to-best-implement-equals-for-custom-types
             if (other == null)
             {
@@ -226,19 +226,42 @@ namespace BitVector
 
             if (this.BitVectors.Length != otherBitVectors.Length)
             {
+                System.Console.WriteLine("not equal length");
                 return false;
             }
-
-            foreach (var oneBitVector in this.BitVectors)
+            // System.Console.WriteLine(this.ToString());
+            for (int i = 0; i < this.BitVectors.Length; i++)
             {
+                var oneBitVector = this.BitVectors[i];
                 var otherOneBitVector = otherBitVectors[currentIndex];
-                isEqual = isEqual && oneBitVector.Equals(otherOneBitVector);
+                var areBothCorrespondingEqual = oneBitVector.Equals(otherOneBitVector);
+                // System.Console.WriteLine(areBothCorrespondingEqual);
+
+                isEqual = isEqual && areBothCorrespondingEqual;
                 if (!isEqual)
                 {
+                    // DEBUGGING:
+                    // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
+                    // System.Console.WriteLine("!==" + other.ToString());
                     return false;
                 }
                 currentIndex++;
             }
+            // foreach (var oneBitVector in this.BitVectors)
+            // {
+            //     if (!isEqual)
+            //     {
+            //         // DEBUGGING:
+            //         // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
+
+            //         return false;
+            //     }
+            //     currentIndex++;
+            // }
+
+            // DEBUGGING:
+            // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
+
             return true;
         }
 

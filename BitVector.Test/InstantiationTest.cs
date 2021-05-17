@@ -36,12 +36,28 @@ namespace BitVector.Test
             // ARRANGE
             var size = 64;
             var bitVector = new BitVector(size);
+            
+            // ACT
             var globalBitIndexInBitVectors = 7;
             bitVector[globalBitIndexInBitVectors] = true;
 
             // ASSERT
             Assert.AreEqual(1, bitVector.Cardinality);
             Assert.IsTrue(bitVector[globalBitIndexInBitVectors]);
+        }
+
+        [Test]
+        public void CreatedInstanceFullCardinality()
+        {
+            // ARRANGE
+            var size = 64;
+            var bitVector = new BitVector(size);
+            
+            // ACT
+            CreateFullBitVector(bitVector, size);
+
+            // ASSERT
+            Assert.AreEqual(size, bitVector.Cardinality);
         }
     }
 }

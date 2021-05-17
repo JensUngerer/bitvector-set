@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace BitVector
 {
-    public class BitVector : IEnumerable, IEquatable<BitVector>
+    public class BitVector : IEnumerable /*, IEquatable<BitVector>, IEqualityComparer<BitVector>*/
     {
         private const int NUMBER_OF_BITS_IN_A_BITVECTOR32 = 32;
 
@@ -284,9 +284,21 @@ namespace BitVector
             return hc;
         }
 
-        public bool Equals(BitVector other)
-        {
-            return this.Equals(other);
-        }
+        // public bool Equals(BitVector other)
+        // {
+        //     // return other.Equals(this);
+        //     return false;
+        // }
+
+        // public bool Equals(BitVector x, BitVector y)
+        // {
+        //     return x.Equals(y);
+        // }
+
+        // public int GetHashCode(BitVector obj)
+        // {
+        //     // return obj.GetHashCode();
+        //     return -1;
+        // }
     }
 }

@@ -2,7 +2,6 @@ using System.Text;
 using System.Collections;
 using System.Collections.Specialized;
 using System;
-using System.Collections.Generic;
 
 namespace BitVector
 {
@@ -213,31 +212,8 @@ namespace BitVector
             return this.Equals(other);
         }
 
-        // public bool Equals(BitVector x, BitVector y)
-        // {
-        //     return x.Equals(y);
-        // }
-
-        // BitVector obj 
         public override int GetHashCode()
         {
-            // var sum = 0;
-
-            // // System.Console.WriteLine("---");
-            // foreach (var oneBitVector in this.BitVectors)
-            // {
-            //     // sum += oneBitVector.Data.GetHashCode();
-            //     // sum += oneBitVector.Data;
-            //     sum += this.BitVectors.Length;
-
-            //     // DEBUGGING:
-            //     // System.Console.WriteLine(sum);
-            // }
-            // // System.Console.WriteLine("---");
-
-
-            // return sum;
-
             // https://stackoverflow.com/questions/3404715/c-sharp-hashcode-for-array-of-ints/3404820
             /**
             * 
@@ -273,7 +249,6 @@ namespace BitVector
             }
 
             var isEqual = true;
-            // var currentIndex = 0;
             var otherBitVectors = other.BitVectors;
 
             if (this.BitVectors.Length != otherBitVectors.Length)
@@ -281,13 +256,11 @@ namespace BitVector
                 System.Console.WriteLine("not equal length");
                 return false;
             }
-            // System.Console.WriteLine(this.ToString());
             for (int currentIndex = 0; currentIndex < this.BitVectors.Length; currentIndex++)
             {
                 var oneBitVector = this.BitVectors[currentIndex];
                 var otherOneBitVector = otherBitVectors[currentIndex];
                 var areBothCorrespondingEqual = oneBitVector.Equals(otherOneBitVector);
-                // System.Console.WriteLine(areBothCorrespondingEqual);
 
                 isEqual = isEqual && areBothCorrespondingEqual;
                 if (!isEqual)
@@ -297,41 +270,9 @@ namespace BitVector
                     // System.Console.WriteLine("!==" + other.ToString());
                     return false;
                 }
-                // currentIndex++;
             }
-            // foreach (var oneBitVector in this.BitVectors)
-            // {
-            //     if (!isEqual)
-            //     {
-            //         // DEBUGGING:
-            //         // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
-
-            //         return false;
-            //     }
-            //     currentIndex++;
-            // }
-
-            // DEBUGGING:
-            // System.Console.WriteLine(this.ToString() + "=?=" + otherObject.ToString());
 
             return true;
         }
-
-        // public bool Equals(BitVector other)
-        // {
-        //     // return other.Equals(this);
-        //     return false;
-        // }
-
-        // public bool Equals(BitVector x, BitVector y)
-        // {
-        //     return x.Equals(y);
-        // }
-
-        // public int GetHashCode(BitVector obj)
-        // {
-        //     // return obj.GetHashCode();
-        //     return -1;
-        // }
     }
 }

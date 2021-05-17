@@ -33,13 +33,13 @@ namespace BitVector
             }
         }
 
-        private bool setAt(int globalBitIndexInBitVectors)
+        private bool setAt(int globalBitIndexInBitVectors, bool value)
         {
             int indexInBitVectorsArray = getIndexInBitVectorsArea(globalBitIndexInBitVectors);
 
             // https://www.dotnetperls.com/bitvector32
             int bitMask = getBitMaskAt(globalBitIndexInBitVectors);
-            this.BitVectors[indexInBitVectorsArray][bitMask] = true;
+            this.BitVectors[indexInBitVectorsArray][bitMask] = value;
 
             return true;
         }
@@ -149,7 +149,7 @@ namespace BitVector
             set
             {
                 CheckIndexOutOfRange(globalBitIndexInBitVectors, size);
-                setAt(globalBitIndexInBitVectors);
+                setAt(globalBitIndexInBitVectors, value);
             }
         }
 

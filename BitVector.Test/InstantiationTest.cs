@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace BitVector.Test
+namespace BitVectorSetLibrary
 {
     public class InstantiationTest
     {

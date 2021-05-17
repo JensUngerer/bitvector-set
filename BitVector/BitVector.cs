@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System;
 
-namespace BitVector
+namespace BitVectorSetLibrary
 {
     public class BitVector : IEnumerable, IEquatable<BitVector>
     {

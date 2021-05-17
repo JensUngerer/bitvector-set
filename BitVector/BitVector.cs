@@ -55,7 +55,7 @@ namespace BitVector
 
         private int size;
 
-        public BitVector32[] BitVectors { get; }
+        private BitVector32[] BitVectors { get; }
 
         public int Cardinality
         {

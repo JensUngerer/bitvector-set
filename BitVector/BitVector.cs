@@ -81,7 +81,6 @@ namespace BitVector
             }
         }
 
-
         public BitVector(int size = 32)
         {
             this.size = size;

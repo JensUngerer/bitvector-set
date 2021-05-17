@@ -23,16 +23,29 @@ namespace BitVector.Test
 
             // try to set last index+1 to true
             Assert.AreEqual(1, bitVector.Cardinality);
-            var testDelegate = new TestDelegate(() =>
+            var settingIndexOutOfRangeValue = new TestDelegate(() =>
             {
                 bitVector[SIZE] = true;
             });
-            Assert.Throws<IndexOutOfRangeException>(testDelegate);            
+            Assert.Throws<IndexOutOfRangeException>(settingIndexOutOfRangeValue);
             // try opposite
-            // Assert.DoesNotThrow(testDelegate);
-            
+            // Assert.DoesNotThrow(settingIndexOutOfRangeValue);
             // size did not change...
             Assert.AreEqual(1, bitVector.Cardinality);
+
+            var gettingIndexOutOfRange = new TestDelegate(() =>
+            {
+                var isLastBitSet = bitVector[SIZE];
+            });
+            Assert.Throws<IndexOutOfRangeException>(gettingIndexOutOfRange);
+            // try opposite
+            // Assert.DoesNotThrow(gettingIndexOutOfRange);
+
+             var gettingIndexWithinRange = new TestDelegate(() => {
+                 var isLastBitSet = bitVector[SIZE - 1];
+                 Assert.False(isLastBitSet);
+            });
+            Assert.DoesNotThrow(gettingIndexWithinRange);
         }
     }
 }

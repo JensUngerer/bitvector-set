@@ -32,15 +32,13 @@ namespace BitVector
             }
         }
 
-        private bool setAt(int globalBitIndexInBitVectors, bool value)
+        private void setAt(int globalBitIndexInBitVectors, bool value)
         {
             int indexInBitVectorsArray = getIndexInBitVectorsArea(globalBitIndexInBitVectors);
 
             // https://www.dotnetperls.com/bitvector32
             int bitMask = getBitMaskAt(globalBitIndexInBitVectors);
             this.BitVectors[indexInBitVectorsArray][bitMask] = value;
-
-            return true;
         }
 
         private bool getAt(int globalBitIndexInBitVectors)

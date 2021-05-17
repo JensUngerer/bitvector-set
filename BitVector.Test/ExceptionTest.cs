@@ -47,5 +47,15 @@ namespace BitVector.Test
             });
             Assert.DoesNotThrow(gettingIndexWithinRange);
         }
+
+        [Test]
+        public void WrongArgumentException() {
+            var createBitVectorWithZeroValue = new TestDelegate(() => {
+                new BitVector(0);
+            });
+            Assert.Throws<ArgumentException>(createBitVectorWithZeroValue);
+            // try opposite
+            // Assert.DoesNotThrow(createBitVectorWithZeroValue);
+        }
     }
 }

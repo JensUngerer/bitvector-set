@@ -83,6 +83,9 @@ namespace BitVector
 
         public BitVector(int size = 32)
         {
+            if (size <= 0) {
+                throw new ArgumentException("size must be > 0");
+            }
             this.size = size;
             var bitVectorsLength = size / NUMBER_OF_BITS_IN_A_BITVECTOR32;
             if (size % NUMBER_OF_BITS_IN_A_BITVECTOR32 != 0)

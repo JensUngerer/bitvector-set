@@ -167,5 +167,27 @@ namespace BitVectorSetLibrary
             // DEBUGGING
             // System.Console.WriteLine(bitVectorSet);
         }
+
+        [Test]
+        public void BasicSetIsContained()
+        {
+            // ARRANGE
+            var bitVectorSet = Create();
+            var elements = BitVectorSet<string>.Elements;
+
+            var globalBitIndexInBitVectors = 7;
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+            globalBitIndexInBitVectors = 14;
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+
+            // ACT
+            var isContained = bitVectorSet.Contains(elements[globalBitIndexInBitVectors]);
+
+            // ASSERT
+            Assert.AreEqual(true, isContained);
+
+            // DEBUGGING
+            // System.Console.WriteLine(bitVectorSet);
+        }
     }
 }

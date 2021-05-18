@@ -8,17 +8,6 @@ namespace BitVectorSetLibrary
 {
     public class BitVectorSet<T> : ICollection<T>, ISet<T>
     {
-
-        // private static void Init(int size)  {
-        //     // https://stackoverflow.com/questions/34219191/how-to-pass-parameter-to-static-class-constructor
-        //     if (Elements.Count == 0 || ElementsMap.Count == 0) {
-        //         for (int i = 0; i < size; i++)
-        //         {
-
-        //         }
-        //     }
-        // }
-
         private int GetGlobalIndex(T item)
         {
             if (!ElementsMap.ContainsKey(item))

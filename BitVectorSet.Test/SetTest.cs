@@ -6,36 +6,12 @@ namespace BitVectorSetLibrary
 {
     public class SetTests
     {
-        private static List<String> CreateElements(int size)
-        {
-            var elements = new List<String>(size);
-            for (int i = 0; i < size; i++)
-            {
-                elements.Add("A" + i.ToString());
-            }
-            return elements;
-        }
-
-        private static Dictionary<String, int> CreateElementsMap(List<string> elements)
-        {
-            var dict = new Dictionary<string, int>();
-
-            var index = 0;
-            foreach (var item in elements)
-            {
-                dict.Add(item, index);
-                index++;
-            }
-
-            return dict;
-        }
+        private static SampleBitVectorFactory SampleBitVectorFactory { get; set; }  = new SampleBitVectorFactory();
 
         private static BitVectorSet<string> Create()
         {
             const int size = 1000;
-            var elements = CreateElements(size);
-            var dict = CreateElementsMap(elements);
-            var bitVectorSet = new BitVectorSet<string>(elements, dict, size);
+            var bitVectorSet = SampleBitVectorFactory.Create(size, "a");
             return bitVectorSet;
         }
 
@@ -209,7 +185,7 @@ namespace BitVectorSetLibrary
             // ASSERT
             for (int i = 1; i <= bitVectorSet.Count; i++)
             {
-                Assert.AreEqual(elements[7*i], array[0 + i - 1]);
+                Assert.AreEqual(elements[7 * i], array[0 + i - 1]);
             }
 
             // DEBUGGING

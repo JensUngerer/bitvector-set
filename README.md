@@ -8,4 +8,4 @@ Install both [BitVector nuget package](https://www.nuget.org/packages/JensUngere
 using BitVectorSetLibrary;
 ```
 
-Derive from ``BitVectorSetFactory`` and create your custom ``factory`` class: than it is possible to create to custom ``BitVectorSet`` objects.
+Derive from ``BitVectorSetFactory`` and create your custom ``factory`` class: than it is possible to create custom ``BitVectorSet`` objects.

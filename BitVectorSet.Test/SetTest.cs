@@ -191,7 +191,7 @@ namespace BitVectorSetLibrary
         }
 
         [Test]
-        public void BasicSetCopyTwo()
+        public void BasicSetCopyTo()
         {
             // ARRANGE
             var bitVectorSet = Create();

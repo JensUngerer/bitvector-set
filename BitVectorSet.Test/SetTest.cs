@@ -97,5 +97,53 @@ namespace BitVectorSetLibrary
             // DEBUGGING
             // System.Console.WriteLine(bitVectorSet);
         }
+
+        [Test]
+        public void BasicSetWithUnionDataTest()
+        {
+            // ARRANGE
+            var bitVectorSet = Create();
+            var elements = BitVectorSet<string>.Elements;
+            var bitVectorSetTwo = Create();
+
+            var globalBitIndexInBitVectors = 7;
+            bitVectorSetTwo.Add(elements[globalBitIndexInBitVectors]);
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+            globalBitIndexInBitVectors = 14;
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+
+            // ACT
+            bitVectorSet.UnionWith(bitVectorSetTwo);
+
+            // ASSERT
+            Assert.AreEqual(2, bitVectorSet.Count);
+
+            // DEBUGGING
+            // System.Console.WriteLine(bitVectorSet);
+        }
+
+          [Test]
+        public void BasicSetWitExorDataTest()
+        {
+            // ARRANGE
+            var bitVectorSet = Create();
+            var elements = BitVectorSet<string>.Elements;
+            var bitVectorSetTwo = Create();
+
+            var globalBitIndexInBitVectors = 7;
+            bitVectorSetTwo.Add(elements[globalBitIndexInBitVectors]);
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+            globalBitIndexInBitVectors = 14;
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+
+            // ACT
+            bitVectorSet.ExceptWith(bitVectorSetTwo);
+
+            // ASSERT
+            Assert.AreEqual(1, bitVectorSet.Count);
+
+            // DEBUGGING
+            // System.Console.WriteLine(bitVectorSet);
+        }
     }
 }

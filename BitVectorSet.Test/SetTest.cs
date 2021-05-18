@@ -189,5 +189,31 @@ namespace BitVectorSetLibrary
             // DEBUGGING
             // System.Console.WriteLine(bitVectorSet);
         }
+
+        [Test]
+        public void BasicSetCopyTwo()
+        {
+            // ARRANGE
+            var bitVectorSet = Create();
+            var elements = BitVectorSet<string>.Elements;
+
+            var globalBitIndexInBitVectors = 7;
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+            globalBitIndexInBitVectors = 14;
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+            var array = new string[] { "A10", "A9", "A8" };
+
+            // ACT
+            bitVectorSet.CopyTo(array, 0);
+
+            // ASSERT
+            for (int i = 1; i <= bitVectorSet.Count; i++)
+            {
+                Assert.AreEqual(elements[7*i], array[0 + i - 1]);
+            }
+
+            // DEBUGGING
+            // System.Console.WriteLine(bitVectorSet);
+        }
     }
 }

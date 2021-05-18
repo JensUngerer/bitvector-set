@@ -71,12 +71,17 @@ namespace BitVectorSetLibrary
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            var item = Elements[arrayIndex];
-            var isContained = Contains(item);
-            if (isContained)
+            // var item = Elements[arrayIndex];
+            // var isContained = Contains(item);
+            // if (isContained)
+            // {
+            var indexOffset = 0;
+            foreach (T item in this)
             {
-                array[arrayIndex] = item;
+                array[arrayIndex + indexOffset] = item;
+                indexOffset++;
             }
+            // }
         }
 
         public IEnumerator<T> GetEnumerator()

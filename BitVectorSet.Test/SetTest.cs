@@ -6,7 +6,8 @@ namespace BitVectorSetLibrary
 {
     public class SetTests
     {
-        private static List<String> CreateElements(int size) {
+        private static List<String> CreateElements(int size)
+        {
             var elements = new List<String>(size);
             for (int i = 0; i < size; i++)
             {
@@ -15,7 +16,8 @@ namespace BitVectorSetLibrary
             return elements;
         }
 
-        private static Dictionary<String, int> CreateElementsMap(List<string> elements) {
+        private static Dictionary<String, int> CreateElementsMap(List<string> elements)
+        {
             var dict = new Dictionary<string, int>();
 
             var index = 0;
@@ -27,7 +29,16 @@ namespace BitVectorSetLibrary
 
             return dict;
         }
-        
+
+        private static BitVectorSet<string> Create()
+        {
+            const int size = 1000;
+            var elements = CreateElements(size);
+            var dict = CreateElementsMap(elements);
+            var bitVectorSet = new BitVectorSet<string>(elements, dict, size);
+            return bitVectorSet;
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -37,23 +48,18 @@ namespace BitVectorSetLibrary
         public void BasicSetTest()
         {
             // ARRANGE
-            const int size = 1000;
-            var elements = CreateElements(size);
-            var dict = CreateElementsMap(elements);
-            var bitVectorSet = new BitVectorSet<string>(elements, dict, size);
+            var bitVectorSet = Create();
 
             // ASSERT
             Assert.AreEqual(0, bitVectorSet.Count);
         }
 
-         [Test]
+        [Test]
         public void BasicSetWithDataTest()
         {
             // ARRANGE
-            const int size = 1000;
-            var elements = CreateElements(size);
-            var dict = CreateElementsMap(elements);
-            var bitVectorSet = new BitVectorSet<string>(elements, dict, size);
+            var bitVectorSet = Create();
+            var elements = BitVectorSet<string>.Elements;
 
             // ACT
             var globalBitIndexInBitVectors = 7;
@@ -63,6 +69,30 @@ namespace BitVectorSetLibrary
 
             // ASSERT
             Assert.AreEqual(2, bitVectorSet.Count);
+
+            // DEBUGGING
+            // System.Console.WriteLine(bitVectorSet);
+        }
+
+        [Test]
+        public void BasicSetWithIntersectionDataTest()
+        {
+            // ARRANGE
+            var bitVectorSet = Create();
+            var elements = BitVectorSet<string>.Elements;
+            var bitVectorSetTwo = Create();
+
+            var globalBitIndexInBitVectors = 7;
+            bitVectorSetTwo.Add(elements[globalBitIndexInBitVectors]);
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+            globalBitIndexInBitVectors = 14;
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+
+            // ACT
+            bitVectorSet.IntersectWith(bitVectorSetTwo);
+
+            // ASSERT
+            Assert.AreEqual(1, bitVectorSet.Count);
 
             // DEBUGGING
             // System.Console.WriteLine(bitVectorSet);

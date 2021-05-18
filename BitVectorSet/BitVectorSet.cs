@@ -31,14 +31,20 @@ namespace BitVectorSetLibrary
 
         private BitVector BitVector { get; }
 
-        private static List<T> Elements { get; set; } = new List<T>();
+        public static List<T> Elements { get; private set; } = new List<T>();
 
-        private static Dictionary<T, int> ElementsMap { get; set; } = new Dictionary<T, int>();
+        public static Dictionary<T, int> ElementsMap { get; private set; } = new Dictionary<T, int>();
 
         public BitVectorSet(List<T> elements, Dictionary<T, int> elementsMap, int size = 32)
         {
-            Elements = elements;
-            ElementsMap = elementsMap;
+            if (Elements.Count == 0)
+            {
+                Elements = elements;
+            }
+            if (ElementsMap.Count == 0)
+            {
+                ElementsMap = elementsMap;
+            }
             BitVector = new BitVector(size);
         }
 

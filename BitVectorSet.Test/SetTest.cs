@@ -35,7 +35,7 @@ namespace BitVectorSetLibrary
         {
             // ARRANGE
             var bitVectorSet = Create();
-            var elements = BitVectorSet<string>.Elements;
+            var elements = bitVectorSet.Elements;
 
             // ACT
             var globalBitIndexInBitVectors = 7;
@@ -55,7 +55,7 @@ namespace BitVectorSetLibrary
         {
             // ARRANGE
             var bitVectorSet = Create();
-            var elements = BitVectorSet<string>.Elements;
+            var elements = bitVectorSet.Elements;
             var bitVectorSetTwo = Create();
 
             var globalBitIndexInBitVectors = 7;
@@ -79,7 +79,7 @@ namespace BitVectorSetLibrary
         {
             // ARRANGE
             var bitVectorSet = Create();
-            var elements = BitVectorSet<string>.Elements;
+            var elements = bitVectorSet.Elements;
             var bitVectorSetTwo = Create();
 
             var globalBitIndexInBitVectors = 7;
@@ -103,7 +103,7 @@ namespace BitVectorSetLibrary
         {
             // ARRANGE
             var bitVectorSet = Create();
-            var elements = BitVectorSet<string>.Elements;
+            var elements = bitVectorSet.Elements;
             var bitVectorSetTwo = Create();
 
             var globalBitIndexInBitVectors = 7;
@@ -127,7 +127,7 @@ namespace BitVectorSetLibrary
         {
             // ARRANGE
             var bitVectorSet = Create();
-            var elements = BitVectorSet<string>.Elements;
+            var elements = bitVectorSet.Elements;
 
             var globalBitIndexInBitVectors = 7;
             bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
@@ -149,7 +149,7 @@ namespace BitVectorSetLibrary
         {
             // ARRANGE
             var bitVectorSet = Create();
-            var elements = BitVectorSet<string>.Elements;
+            var elements = bitVectorSet.Elements;
 
             var globalBitIndexInBitVectors = 7;
             bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
@@ -171,7 +171,7 @@ namespace BitVectorSetLibrary
         {
             // ARRANGE
             var bitVectorSet = Create();
-            var elements = BitVectorSet<string>.Elements;
+            var elements = bitVectorSet.Elements;
 
             var globalBitIndexInBitVectors = 7;
             bitVectorSet.Add(elements[globalBitIndexInBitVectors]);

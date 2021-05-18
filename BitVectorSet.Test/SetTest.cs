@@ -122,7 +122,7 @@ namespace BitVectorSetLibrary
             // System.Console.WriteLine(bitVectorSet);
         }
 
-          [Test]
+        [Test]
         public void BasicSetWitExorDataTest()
         {
             // ARRANGE
@@ -141,6 +141,28 @@ namespace BitVectorSetLibrary
 
             // ASSERT
             Assert.AreEqual(1, bitVectorSet.Count);
+
+            // DEBUGGING
+            // System.Console.WriteLine(bitVectorSet);
+        }
+
+        [Test]
+        public void BasicSetClear()
+        {
+            // ARRANGE
+            var bitVectorSet = Create();
+            var elements = BitVectorSet<string>.Elements;
+
+            var globalBitIndexInBitVectors = 7;
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+            globalBitIndexInBitVectors = 14;
+            bitVectorSet.Add(elements[globalBitIndexInBitVectors]);
+
+            // ACT
+            bitVectorSet.Clear();
+
+            // ASSERT
+            Assert.AreEqual(0, bitVectorSet.Count);
 
             // DEBUGGING
             // System.Console.WriteLine(bitVectorSet);

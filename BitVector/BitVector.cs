@@ -268,7 +268,11 @@ namespace BitVectorSetLibrary
 
         public static void EndString(StringBuilder stringBuilder)
         {
-            stringBuilder.Remove(stringBuilder.Length - SEPARATOR.Length, SEPARATOR.Length);
+            if (stringBuilder.Length > SEPARATOR.Length)
+            {
+                stringBuilder.Remove(stringBuilder.Length - SEPARATOR.Length, SEPARATOR.Length);
+            }
+
             stringBuilder.Append("}");
             stringBuilder.Append('\n');
         }

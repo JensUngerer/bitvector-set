@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 // using static BitVector;
 
 namespace BitVectorSetLibrary
@@ -244,9 +245,24 @@ namespace BitVectorSetLibrary
 
         public void UnionWith(IEnumerable<T> other)
         {
-             // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.iset-1.unionwith?view=net-5.0
+            // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.iset-1.unionwith?view=net-5.0
             var otherBitVector = Create(other);
             this.BitVector.Union(otherBitVector);
+        }
+
+        public override string ToString()
+        {
+            var stringBuilder = new StringBuilder();
+
+            BitVector.StartString(stringBuilder);
+            foreach (int globalIdex in BitVector)
+            {
+                var element = Elements[globalIdex];
+                BitVector.AppendEntry(stringBuilder, element);
+            }
+            BitVector.EndString(stringBuilder);
+
+            return stringBuilder.ToString();
         }
     }
 }

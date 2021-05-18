@@ -253,22 +253,36 @@ namespace BitVectorSetLibrary
                 // Console.WriteLine(this.bitVectors[i]);
             }
         }
+        const string SEPARATOR = ", ";
+
+        public static void AppendEntry(StringBuilder stringBuilder, object entry)
+        {
+            stringBuilder.Append(entry.ToString());
+            stringBuilder.Append(SEPARATOR);
+        }
+
+        public static void StartString(StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("{");
+        }
+
+        public static void EndString(StringBuilder stringBuilder)
+        {
+            stringBuilder.Remove(stringBuilder.Length - SEPARATOR.Length, SEPARATOR.Length);
+            stringBuilder.Append("}");
+            stringBuilder.Append('\n');
+        }
 
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append("{");
 
-            const string SEPARATOR = ", ";
+            StartString(stringBuilder);
             foreach (int globalBitIndexInBitVectors in this)
             {
-                stringBuilder.Append(globalBitIndexInBitVectors.ToString());
-                stringBuilder.Append(SEPARATOR);
+                AppendEntry(stringBuilder, globalBitIndexInBitVectors);
             }
-
-            stringBuilder.Remove(stringBuilder.Length - SEPARATOR.Length, SEPARATOR.Length);
-            stringBuilder.Append("}");
-            stringBuilder.Append('\n');
+            EndString(stringBuilder);
 
             return stringBuilder.ToString();
         }

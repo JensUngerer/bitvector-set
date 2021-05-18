@@ -2,6 +2,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Specialized;
 using System;
+using System.Reflection;
 
 namespace BitVectorSetLibrary
 {
@@ -61,6 +62,15 @@ namespace BitVectorSetLibrary
         }
 
         public BitVector32[] BitVectors { get; private set; }
+
+        public void ExceptWith(BitVector other)
+        {
+            // https://docs.microsoft.com/en-us/dotnet/api/system.collections.immutable.immutablehashset-1.system-collections-generic-iset-t--exceptwith?view=net-5.0
+            foreach (int globalIndexToRemove in other)
+            {
+                setAt(globalIndexToRemove, false);
+            }
+        }
 
         public void Clear()
         {
@@ -167,6 +177,29 @@ namespace BitVectorSetLibrary
             }
         }
 
+        // ?
+        // private void IterateAndPerformLogicalOperation(BitVector other, String logicalOperation)
+        // {
+        //     // https://stackoverflow.com/questions/11113259/how-to-call-custom-operator-with-reflection
+        //     var logicalOperator = typeof(int).GetMethod(logicalOperation, BindingFlags.Static | BindingFlags.Public);
+
+        //     for (int i = 0; i < this.BitVectors.Length; i++)
+        //     {
+        //         object currentData = this.BitVectors[i].Data;
+        //         object currentOtherData = other.BitVectors[i].Data;
+        //         // currentData &= currentOtherData;
+        //         currentData = logicalOperator.Invoke(null, new object[2]{currentData, currentOtherData});
+
+        //         // DEBUGGING:
+        //         // Console.WriteLine(currentData);
+
+        //         this.BitVectors[i] = new BitVector32((int)currentData);
+
+        //         // DEBUGGING:
+        //         // Console.WriteLine(this.bitVectors[i]);
+        //     }
+        // }
+
         public void Intersect(BitVector other)
         {
             for (int i = 0; i < this.BitVectors.Length; i++)
@@ -174,6 +207,42 @@ namespace BitVectorSetLibrary
                 int currentData = this.BitVectors[i].Data;
                 int currentOtherData = other.BitVectors[i].Data;
                 currentData &= currentOtherData;
+
+                // DEBUGGING:
+                // Console.WriteLine(currentData);
+
+                this.BitVectors[i] = new BitVector32(currentData);
+
+                // DEBUGGING:
+                // Console.WriteLine(this.bitVectors[i]);
+            }
+        }
+
+        public void SymmetricDifference(BitVector other)
+        {
+            for (int i = 0; i < this.BitVectors.Length; i++)
+            {
+                int currentData = this.BitVectors[i].Data;
+                int currentOtherData = other.BitVectors[i].Data;
+                currentData ^= currentOtherData;
+
+                // DEBUGGING:
+                // Console.WriteLine(currentData);
+
+                this.BitVectors[i] = new BitVector32(currentData);
+
+                // DEBUGGING:
+                // Console.WriteLine(this.bitVectors[i]);
+            }
+        }
+
+        public void Union(BitVector other)
+        {
+            for (int i = 0; i < this.BitVectors.Length; i++)
+            {
+                int currentData = this.BitVectors[i].Data;
+                int currentOtherData = other.BitVectors[i].Data;
+                currentData |= currentOtherData;
 
                 // DEBUGGING:
                 // Console.WriteLine(currentData);

@@ -1,7 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageId>JensUngerer.BitVector</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Jens Ungrer</Authors>
+    <Company>None</Company>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="./../LICENSE.md" Pack="true" Visible="false" PackagePath=""/>
+  </ItemGroup>
 </Project>

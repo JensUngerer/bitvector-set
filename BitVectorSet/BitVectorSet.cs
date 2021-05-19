@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 // using static BitVector;
 
-namespace BitVectorSetLibrary
+namespace JensUngerer.BitVectorSet
 {
     public class BitVectorSet<T> : ICollection<T>, ISet<T>
     {

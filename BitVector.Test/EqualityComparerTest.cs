@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-namespace BitVectorSetLibrary
+namespace JensUngerer.BitVectorSet
 {
     public class EqualityComparerTest
     {

@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
 
-namespace BitVectorSetLibrary
+namespace JensUngerer.BitVectorSet
 {
     public class ExceptionTest
     {

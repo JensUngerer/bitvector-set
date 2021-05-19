@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BitVectorSetLibrary
+namespace JensUngerer.BitVectorSet
 {
     public class BitVectorEqualityComparer : IEqualityComparer<BitVector>
     {

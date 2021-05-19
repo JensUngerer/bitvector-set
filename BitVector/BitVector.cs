@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System;
 using System.Reflection;
 
-namespace BitVectorSetLibrary
+namespace JensUngerer.BitVectorSet
 {
     public class BitVector : IEnumerable, IEquatable<BitVector>
     {

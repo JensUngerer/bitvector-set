@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BitVectorSetLibrary
+namespace JensUngerer.BitVectorSet
 {
     public abstract class BitVectorSetFactory<T>
     {

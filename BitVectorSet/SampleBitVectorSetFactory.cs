@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BitVectorSetLibrary
+namespace JensUngerer.BitVectorSet
 {
     public class SampleBitVectorFactory : BitVectorSetFactory<string>
     {

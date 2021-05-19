@@ -6,8 +6,8 @@
 
   <PropertyGroup>
     <PackageId>JensUngerer.BitVectorSet</PackageId>
-    <Version>1.0.1</Version>
-    <Authors>Jens Ungrer</Authors>
+    <Version>1.0.2</Version>
+    <Authors>Jens Ungerer</Authors>
     <Company>None</Company>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

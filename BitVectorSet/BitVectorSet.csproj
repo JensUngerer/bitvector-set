@@ -1,12 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\BitVector\BitVector.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
     <PackageId>JensUngerer.BitVectorSet</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Jens Ungerer</Authors>
     <Company>None</Company>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -15,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="./../LICENSE.md" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="./../LICENSE.md" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JensUngerer.BitVector" Version="1.0.2" />
   </ItemGroup>
 </Project>

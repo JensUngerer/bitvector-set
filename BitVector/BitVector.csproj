@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="./../LICENSE.md" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="./../LICENSE.md" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JensUngerer.BitVector64" Version="1.0.1" />
   </ItemGroup>
 </Project>

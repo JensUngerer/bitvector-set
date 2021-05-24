@@ -2,26 +2,27 @@ using System.Text;
 using System.Collections;
 using System.Collections.Specialized;
 using System;
-using System.Reflection;
+using BitVector64Bit = JensUngerer.BitVector64.BitVector64;
+// using System.Reflection;
 
 namespace JensUngerer.BitVectorSet
 {
     public class BitVector : IEnumerable, IEquatable<BitVector>
     {
-        private static int[] masks;
+        private static long[] masks;
 
-        public const int NUMBER_OF_BITS_IN_A_BITVECTOR32 = 32;
+        public const int NUMBER_OF_BITS_IN_A_BITVECTOR64 = BitVector64Bit.NUMBER_OF_BITS_IN_BITVECTOR64;
 
         private static int getIndexInBitVectorsArea(int globalBitIndexInBitVectors)
         {
-            int indexInBitVectorsArray = globalBitIndexInBitVectors / NUMBER_OF_BITS_IN_A_BITVECTOR32;
+            int indexInBitVectorsArray = globalBitIndexInBitVectors / NUMBER_OF_BITS_IN_A_BITVECTOR64;
             return indexInBitVectorsArray;
         }
 
-        private static int getBitMaskAt(int globalBitIndexInBitVectors)
+        private static long getBitMaskAt(int globalBitIndexInBitVectors)
         {
-            int localBitIndexInBitVector32 = globalBitIndexInBitVectors % NUMBER_OF_BITS_IN_A_BITVECTOR32;
-            int bitMask = masks[localBitIndexInBitVector32];
+            int localBitIndexInBitVector32 = globalBitIndexInBitVectors % NUMBER_OF_BITS_IN_A_BITVECTOR64;
+            long bitMask = masks[localBitIndexInBitVector32];
             return bitMask;
         }
 
@@ -38,7 +39,7 @@ namespace JensUngerer.BitVectorSet
             int indexInBitVectorsArray = getIndexInBitVectorsArea(globalBitIndexInBitVectors);
 
             // https://www.dotnetperls.com/bitvector32
-            int bitMask = getBitMaskAt(globalBitIndexInBitVectors);
+            long bitMask = getBitMaskAt(globalBitIndexInBitVectors);
             this.BitVectors[indexInBitVectorsArray][bitMask] = value;
         }
 
@@ -47,7 +48,7 @@ namespace JensUngerer.BitVectorSet
             int indexInBitVectorsArray = getIndexInBitVectorsArea(globalBitIndexInBitVectors);
 
             // https://www.dotnetperls.com/bitvector32
-            int bitMask = getBitMaskAt(globalBitIndexInBitVectors);
+            long bitMask = getBitMaskAt(globalBitIndexInBitVectors);
             return this.BitVectors[indexInBitVectorsArray][bitMask];
         }
 
@@ -61,7 +62,7 @@ namespace JensUngerer.BitVectorSet
             }
         }
 
-        public BitVector32[] BitVectors { get; private set; }
+        public BitVector64Bit[] BitVectors { get; private set; }
 
         public void ExceptWith(BitVector other)
         {
@@ -74,7 +75,7 @@ namespace JensUngerer.BitVectorSet
 
         public void Clear()
         {
-            this.BitVectors = new BitVector32[this.BitVectors.Length];
+            this.BitVectors = new BitVector64Bit[this.BitVectors.Length];
         }
 
         public int Cardinality
@@ -93,12 +94,13 @@ namespace JensUngerer.BitVectorSet
         static BitVector()
         {
             // https://www.dotnetperls.com/bitvector32
-            masks = new int[NUMBER_OF_BITS_IN_A_BITVECTOR32];
-            masks[0] = BitVector32.CreateMask();
-            for (int i = 1; i < NUMBER_OF_BITS_IN_A_BITVECTOR32; i++)
-            {
-                masks[i] = BitVector32.CreateMask(masks[i - 1]);
-            }
+            masks = BitVector64Bit.createMasks();
+            // masks = new int[NUMBER_OF_BITS_IN_A_BITVECTOR64];
+            // masks[0] = BitVector32.CreateMask();
+            // for (int i = 1; i < NUMBER_OF_BITS_IN_A_BITVECTOR64; i++)
+            // {
+            //     masks[i] = BitVector32.CreateMask(masks[i - 1]);
+            // }
         }
 
         public BitVector(int size = 32)
@@ -108,12 +110,12 @@ namespace JensUngerer.BitVectorSet
                 throw new ArgumentException("size must be > 0");
             }
             this.size = size;
-            var bitVectorsLength = size / NUMBER_OF_BITS_IN_A_BITVECTOR32;
-            if (size % NUMBER_OF_BITS_IN_A_BITVECTOR32 != 0)
+            var bitVectorsLength = size / NUMBER_OF_BITS_IN_A_BITVECTOR64;
+            if (size % NUMBER_OF_BITS_IN_A_BITVECTOR64 != 0)
             {
                 bitVectorsLength++;
             }
-            this.BitVectors = new BitVector32[bitVectorsLength];
+            this.BitVectors = new BitVector64Bit[bitVectorsLength];
         }
 
         // necessary to e.g. create full BitVector?
@@ -124,18 +126,18 @@ namespace JensUngerer.BitVectorSet
         //         throw new ArgumentException();
         //     }
         //     var length = bitVectorData.Length;
-        //     var clonedBitVectors = new BitVector32[length];
+        //     var clonedBitVectors = new BitVector64Bit[length];
         //     int currentIndex = 0;
         //     foreach (var oneBitVectorData in bitVectorData)
         //     {
-        //         clonedBitVectors[currentIndex] = new BitVector32(oneBitVectorData);
+        //         clonedBitVectors[currentIndex] = new BitVector64Bit(oneBitVectorData);
         //         currentIndex++;
         //     }
         //     this.BitVectors = clonedBitVectors;
         //     this.size = length * NUMBER_OF_BITS_IN_A_BITVECTOR32;
         // }
 
-        private BitVector(BitVector32[] bitVectors)
+        private BitVector(BitVector64Bit[] bitVectors)
         {
             // cf.: https://docs.microsoft.com/de-de/dotnet/api/system.object.memberwiseclone?view=net-5.0
             if (bitVectors == null || bitVectors.Length == 0)
@@ -144,13 +146,13 @@ namespace JensUngerer.BitVectorSet
             }
 
             var length = bitVectors.Length;
-            var size = length * NUMBER_OF_BITS_IN_A_BITVECTOR32;
+            var size = length * NUMBER_OF_BITS_IN_A_BITVECTOR64;
 
-            var clonedBitVectors = new BitVector32[length];
+            var clonedBitVectors = new BitVector64Bit[length];
             var currentIndex = 0;
             foreach (var oneBitVector in bitVectors)
             {
-                clonedBitVectors[currentIndex] = new BitVector32(oneBitVector);
+                clonedBitVectors[currentIndex] = new BitVector64Bit(oneBitVector);
                 currentIndex++;
             }
             this.BitVectors = clonedBitVectors;
@@ -193,7 +195,7 @@ namespace JensUngerer.BitVectorSet
         //         // DEBUGGING:
         //         // Console.WriteLine(currentData);
 
-        //         this.BitVectors[i] = new BitVector32((int)currentData);
+        //         this.BitVectors[i] = new BitVector64Bit((int)currentData);
 
         //         // DEBUGGING:
         //         // Console.WriteLine(this.bitVectors[i]);
@@ -204,14 +206,14 @@ namespace JensUngerer.BitVectorSet
         {
             for (int i = 0; i < this.BitVectors.Length; i++)
             {
-                int currentData = this.BitVectors[i].Data;
-                int currentOtherData = other.BitVectors[i].Data;
+                ulong currentData = this.BitVectors[i].Data;
+                ulong currentOtherData = other.BitVectors[i].Data;
                 currentData &= currentOtherData;
 
                 // DEBUGGING:
                 // Console.WriteLine(currentData);
 
-                this.BitVectors[i] = new BitVector32(currentData);
+                this.BitVectors[i] = new BitVector64Bit(currentData);
 
                 // DEBUGGING:
                 // Console.WriteLine(this.bitVectors[i]);
@@ -222,14 +224,14 @@ namespace JensUngerer.BitVectorSet
         {
             for (int i = 0; i < this.BitVectors.Length; i++)
             {
-                int currentData = this.BitVectors[i].Data;
-                int currentOtherData = other.BitVectors[i].Data;
+                ulong currentData = this.BitVectors[i].Data;
+                ulong currentOtherData = other.BitVectors[i].Data;
                 currentData ^= currentOtherData;
 
                 // DEBUGGING:
                 // Console.WriteLine(currentData);
 
-                this.BitVectors[i] = new BitVector32(currentData);
+                this.BitVectors[i] = new BitVector64Bit(currentData);
 
                 // DEBUGGING:
                 // Console.WriteLine(this.bitVectors[i]);
@@ -240,14 +242,14 @@ namespace JensUngerer.BitVectorSet
         {
             for (int i = 0; i < this.BitVectors.Length; i++)
             {
-                int currentData = this.BitVectors[i].Data;
-                int currentOtherData = other.BitVectors[i].Data;
+                ulong currentData = this.BitVectors[i].Data;
+                ulong currentOtherData = other.BitVectors[i].Data;
                 currentData |= currentOtherData;
 
                 // DEBUGGING:
                 // Console.WriteLine(currentData);
 
-                this.BitVectors[i] = new BitVector32(currentData);
+                this.BitVectors[i] = new BitVector64Bit(currentData);
 
                 // DEBUGGING:
                 // Console.WriteLine(this.bitVectors[i]);
@@ -318,17 +320,13 @@ namespace JensUngerer.BitVectorSet
             * If your HashSet is materialized by Entity Framework, it will have System.Data.Entity.Infrastructure.ObjectReferenceEqualityComparer. 
             *
             **/
-            var array = new int[this.BitVectors.Length];
-            var i = 0;
+            int hc = this.BitVectors.Length;
+            const ulong factor = 314159;
             foreach (var item in this.BitVectors)
             {
-                array[i] = this.BitVectors[i].Data;
-                i++;
-            }
-            int hc = array.Length;
-            foreach (int val in array)
-            {
-                hc = unchecked(hc * 314159 + val);
+                var val = item.Data;
+                ulong multiplication = ((ulong)hc) * factor;
+                hc = (int) unchecked(multiplication + val);
             }
             return hc;
         }

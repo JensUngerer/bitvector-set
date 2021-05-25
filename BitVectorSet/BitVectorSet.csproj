@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>JensUngerer.BitVectorSet</PackageId>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <Authors>Jens Ungerer</Authors>
     <Company>None</Company>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JensUngerer.BitVector" Version="1.0.3" />
+    <PackageReference Include="JensUngerer.BitVector" Version="1.0.4" />
   </ItemGroup>
 
 </Project>

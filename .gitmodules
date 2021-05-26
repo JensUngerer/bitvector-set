@@ -1,0 +1,6 @@
+[submodule "BitVector64"]
+	path = BitVector64
+	url = ./BitVector64
+[submodule "BitVector64.Test"]
+	path = BitVector64.Test
+	url = ./BitVector64.Test

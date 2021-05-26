@@ -10,3 +10,6 @@
 [submodule "BitVector.Test"]
 	path = BitVector.Test
 	url = ./BitVector.Test
+[submodule "BitVectorSet"]
+	path = BitVectorSet
+	url = ./BitVectorSet
